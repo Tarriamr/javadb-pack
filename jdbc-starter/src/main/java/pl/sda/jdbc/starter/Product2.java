@@ -7,31 +7,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Product {
+public class Product2 {
     private final ConnectionFactory connectionFactory;
-    List<String> result = new ArrayList<>();
+    List<ArrayList<String>> result = new ArrayList<>();
     String query = "select * from  products where `productName` like ?";
 
-    public Product(ConnectionFactory connectionFactory) {
+    public Product2(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 
-    public List<String> findProductByName(String nameMatcher) {
+    public List<ArrayList<String>> findProductByName(String nameMatcher) {
         try (Connection connection = connectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, nameMatcher);
             ResultSet resultSet = preparedStatement.executeQuery();
+
+            String[] columns = new String[resultSet.getMetaData().getColumnCount()];
+
+            for (int i = 0; i < columns.length; i++) {
+                columns[i] = resultSet.getMetaData().getColumnName(i + 1);
+            }
+
             while (resultSet.next()) {
-                String row = resultSet.getRow() + "; " +
-                        resultSet.getString("productCode") + "; " +
-                        resultSet.getString("productName") + "; " +
-                        resultSet.getString("productLine") + "; " +
-                        resultSet.getString("productScale") + "; " +
-                        resultSet.getString("productVendor") + "; " +
-                        resultSet.getString("productDescription") + "; " +
-                        resultSet.getString("quantityInStock") + "; " +
-                        resultSet.getString("buyPrice") + "; " +
-                        resultSet.getString("MSRP");
+                ArrayList<String> row = new ArrayList<>();
+                row.add("row - " + resultSet.getRow());
+                for (String column :
+                        columns) {
+                    row.add(column + " - " + resultSet.getString(column));
+                }
                 result.add(row);
             }
             return result;
