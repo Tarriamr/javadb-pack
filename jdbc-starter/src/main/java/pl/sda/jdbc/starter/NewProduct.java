@@ -1,5 +1,7 @@
 package pl.sda.jdbc.starter;
 
+import java.math.BigDecimal;
+
 public class NewProduct {
     private String productCode;
     private String productName;
@@ -8,8 +10,26 @@ public class NewProduct {
     private String productVendor;
     private String productDescription;
     private int quantityInStock;
-    private double buyPrice;
-    private double MSRP;
+    private BigDecimal buyPrice;
+    private BigDecimal MSRP;
+
+    public NewProduct() {
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productCode='" + productCode + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productLine='" + productLine + '\'' +
+                ", productScale='" + productScale + '\'' +
+                ", productVendor='" + productVendor + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", quantityInStock=" + quantityInStock +
+                ", buyPrice=" + buyPrice +
+                ", MSRP=" + MSRP +
+                '}';
+    }
 
     public String getProductCode() {
         return productCode;
@@ -67,19 +87,19 @@ public class NewProduct {
         this.quantityInStock = quantityInStock;
     }
 
-    public double getBuyPrice() {
+    public BigDecimal getBuyPrice() {
         return buyPrice;
     }
 
-    public void setBuyPrice(double buyPrice) {
+    public void setBuyPrice(BigDecimal buyPrice) {
         this.buyPrice = buyPrice;
     }
 
-    public double getMSRP() {
+    public BigDecimal getMSRP() {
         return MSRP;
     }
 
-    public void setMSRP(double MSRP) {
+    public void setMSRP(BigDecimal MSRP) {
         this.MSRP = MSRP;
     }
 }

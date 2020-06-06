@@ -19,7 +19,7 @@ public class Product2 {
     public List<ArrayList<String>> findProductByName(String nameMatcher) {
         try (Connection connection = connectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, nameMatcher);
+            preparedStatement.setString(1, "%" + nameMatcher + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
 
             String[] columns = new String[resultSet.getMetaData().getColumnCount()];

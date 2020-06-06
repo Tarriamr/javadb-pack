@@ -16,7 +16,7 @@ public class Order {
         this.connectionFactory = connectionFactory;
     }
 
-    public List<ArrayList<String>> findOrdersByEmloyeeId(int id) {
+    public List<ArrayList<String>> findOrdersByEmployeeId(int id) {
         try (Connection connection = connectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query1);
             preparedStatement.setInt(1, id);
@@ -43,6 +43,7 @@ public class Order {
         }
         return null;
     }
+
 
     public List<ArrayList<String>> findOrdersByDate(Date from, Date to) {
         try (Connection connection = connectionFactory.getConnection()) {

@@ -9,46 +9,24 @@ public class JpaBasic {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            /**
-             * Tworzymy nowy obiekt EntityManagerFactory z konfiguracją Persistence Unit o nazwie: "pl.sda.jpa.starter"
-             */
             entityManagerFactory = Persistence.createEntityManagerFactory("pl.sda.jpa.starter");
-            /**
-              * tworzymy nową instancję EntityManager
-              */
             entityManager = entityManagerFactory.createEntityManager();
 
-            /**
-             * Do pracy z bazą danych potrzebujemy transakcji
-             */
             EntityTransaction transaction = entityManager.getTransaction();
-            /**
-             * Zaczynamy nową transakcję, każda operacja na bazie danych musi być "otoczona" transakcją
-             */
             transaction.begin();
 
-            /**
-             * Zapisujemy encję w bazie danych
-             */
-            CoachEntity coachEntity = new CoachEntity("Jan Kowalski");
-            entityManager.persist(coachEntity);
+            StudentEntity jan = new StudentEntity("Jan", 3);
+            StudentEntity maria = new StudentEntity("Maria", 4);
+            
+            entityManager.persist(jan);
+            entityManager.persist(maria);
 
-            /**
-             * Wyciągamy wszystkie encje zapisane w bazie danych
-             */
-            TypedQuery<CoachEntity> query = entityManager.createQuery("from CoachEntity", CoachEntity.class);
-            List<CoachEntity> coaches = query.getResultList();
-            System.out.println("coaches = " + coaches);
+            TypedQuery<StudentEntity> query = entityManager.createQuery("from StudentEntity", StudentEntity.class);
+            List<StudentEntity> students = query.getResultList();
+            System.out.println("coaches = " + students);
 
-            /**
-             * Kończymy (commitujemy) transakcję - wszystkie dane powinny być zapisane w bazie
-             */
             transaction.commit();
         } finally {
-            /**
-             * Kończymy pracę z entityManager, zamykamy go i tym samym zamykamy Persistence Context z nim związany
-             * Czemu EntityManager nie implementuje AutoClosable? https://github.com/javaee/jpa-spec/issues/77
-             */
 
             if (entityManager != null) {
                 entityManager.close();

@@ -19,7 +19,7 @@ public class Product {
     public List<String> findProductByName(String nameMatcher) {
         try (Connection connection = connectionFactory.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, nameMatcher);
+            preparedStatement.setString(1, "%" + nameMatcher + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 String row = resultSet.getRow() + "; " +

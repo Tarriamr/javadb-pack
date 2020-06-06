@@ -91,7 +91,7 @@ public class ClassicModelsManager {
                 Order order = new Order(connectionFactory);
                 logger.info("What is the id of employ?");
                 int i8 = scanner.nextInt();
-                List<ArrayList<String>> ordersByEmloyeeId = order.findOrdersByEmloyeeId(i8);
+                List<ArrayList<String>> ordersByEmloyeeId = order.findOrdersByEmployeeId(i8);
                 for (ArrayList<String> resoult :
                         ordersByEmloyeeId) {
                     for (String s :

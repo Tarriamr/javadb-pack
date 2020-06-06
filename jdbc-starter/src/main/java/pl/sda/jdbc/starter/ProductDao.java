@@ -1,17 +1,18 @@
 package pl.sda.jdbc.starter;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ProductDao {
 
-    void save(Product p);
+    void save(NewProduct newProduct);
 
-    void update (Product p);
+    void update (NewProduct newProduct);
 
     void delete (String id);
 
-    Product find (String id);
+    NewProduct find (String id) throws SQLException;
 
-    List<Product> findAll();
+    List<NewProduct> findAll() throws SQLException;
 
 }
